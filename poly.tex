@@ -121,7 +121,7 @@
 \begin{document}
 \title{Introduction à Git}
 %\author{\includegraphics{clubnix}}
-\author{Club*Nix}
+\author{\includegraphics{clubnix}}
 \date{\url{https://clubnix.fr}}
 
 \maketitle
@@ -348,11 +348,17 @@ $ git revert numeroHexadecimal
 
 Dans Git, toutes les modifications que vous faites au fil du temps sont par défaut considérées comme appartenant à la branche principale appelée « master » :
 
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{Branch1}
+\end{figure}
 
 \paragraph{}Supposons que vous ayez une idée pour améliorer la gestion des erreurs dans votre programme mais que vous ne soyez pas sûrs qu’elle va fonctionner : vous voulez faire des tests, ça va vous prendre du temps, donc vous ne voulez pas que votre projet incorpore ces changements dans l’immédiat.
 
 Il suffit de créer une branche, que vous nommerez par exemple «idee\_gestion\_erreurs», dans laquelle vous allez pouvoir travailler en parallèle :
 
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{Branch2}
+\end{figure}
 
 \paragraph{}À un moment donné, nous avons décidé de créer une nouvelle branche. Nous avons pu y faire des commits, mais cela ne nous a pas empêché de continuer à travailler sur la branche principale et d’y faire des commits aussi.
 
