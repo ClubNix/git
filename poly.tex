@@ -145,93 +145,114 @@
 
 \section{Les gestionnaires de versions}
 
-\paragraph{} Un gestionnaire de version est un outil permettant de maintenir plusieurs versions, c'est-à-dire qu'il est capable d'enregistrer les différents états d'un ou de plusieurs fichiers au cours du temps et de naviguer facilement entres ces états.
+\paragraph{} Un gestionnaire de version est un outil permettant de maintenir plusieurs versions, c'est-à-dire qu'il est capable d'enregistrer les différents états d'un ou de plusieurs fichiers au cours du temps et de naviguer facilement entres ses états.
 
 \paragraph{}Il en existe plusieurs, les plus connus étant \emph{mercurial}, \emph{SVN} et \emph{Git}.  Nous nous intéresserons uniquement à ce dernier qui est notamment utilisé pour la réalisation de Linux.
 
 \section{Git, un gestionnaire décentralisé}
 
-\paragraph{} Git à la particularité, contrairement à d'autres gestionnaires de version d'être décentralisé, c'est à dire qu'il n'a pas besoin d'un serveur pour fonctionner.  Cependant pour des raisons de simplicité il est souvent utilisé de cette manière.
+\paragraph{} Git a la particularité, contrairement à d'autres gestionnaires de version d'être décentralisé, c'est à dire qu'il n'a pas besoin d'un serveur pour fonctionner.  Cependant pour des raisons de simplicité il est souvent utilisé de cette manière.
 %TODO ref plus loin
 
-\paragraph{} Chaque personne possède un dépôt privé, et un dépôt public.  Le dépôt privé sert à faire du développement local, et le public sert à envoyer des versions du code source afin que d'autres personnes puissent les télécharger.  En donnant à tout un groupe le même dépôt public, nous obtenons un système centralisé.
+\paragraph{} Chaque personne possède un dépôt privé, et un dépôt public.  Le dépôt privé sert à faire du développement local, et le public sert à envoyer des versions du code source afin que d'autres personnes puissent les télécharger. En donnant à tout un groupe d'utilisateurs le même dépôt public, le système devient alors centralisé. De cette manière,tout le monde peut connaître la progression de chacun des utilisateurs dans le projet.
 
+Enfin, les gestionnaires de versions apportent une sécurité supplémentaire dans le cas où le serveur qui permettait aux utilisateurs de collaborer s'arrêterait. En effet, chaque collaborateur serait alors capable de le restaurer en recopiant leur dépôt sur le serveur centralisé.
 
+\newpage
 \part{Installation}
-\paragraph{}L'installation de Git differe en fonction de votre système d'exploitation:
+\paragraph{}L'installation de Git diffère en fonction de votre système d'exploitation:
 \section{Linux}
-\paragraph{} Pour installer Git sur un système Linux il suffi d'executer la commande suivante:
+\paragraph{} Pour installer Git sur un système Linux il suffit d'exécuter la commande suivante:
 \begin{lstlisting}
 $ sudo apt-get install git-core gitk
 \end{lstlisting}
-\paragraph{}A savoir que Git est installé par defaut sur certain système Linux.
+\paragraph{}A savoir que Git est installé par défaut sur certains systèmes Linux.
 
 \section{Windows}
-\paragraph{}Pour les systèmes Windaub il faut installer \emph{msysgit} qui installera un terminal Unix permettant d'utiliser les commandes Linux de Git (et donc de suivre la suite du tuto) ainsi que les paquet Git essentiel a son bon fonctionnement, pour installer msysgit reportez vous au tutoriel fourni sur \url{http://msysgit.github.io}
+\paragraph{}Pour les systèmes Windaub, il faut installer \emph{msysgit} qui installera un terminal Unix permettant d'utiliser les commandes Linux de Git (et donc de suivre la suite du tuto) ainsi que les paquets Git essentiels à son bon fonctionnement, pour installer msysgit reportez-vous au tutoriel fourni sur \url{http://msysgit.github.io}
 
 \section{MacOS}
 \paragraph{}Il y a plusieurs façons d’installer Git sous Mac OS X. Le plus simple est de se baser sur cet installeur pour Mac OS X : 
 \url{https://code.google.com/archive/p/git-osx-installer/}. 
-MacOS utilisant un terminal Linux nous pourront utiliser les commandes données dans ce tuto sous MacOS.
+MacOS utilisant un terminal Linux nous pourrons utiliser les commandes données dans ce tuto sous MacOS.
 
+\newpage
 \part{Configuration de Git}
-\paragraph{}Avant de commencer a utiliser Git il vous faudra creer une configuration basique de Git, pour cela il vous faudra seulement executer quelque commande dans un terminal Linux:
+\paragraph{}Avant de commencer à utiliser Git il vous faudra créer une configuration basique de Git, pour cela il vous faudra seulement exécuter quelques commandes dans un terminal Linux:
 \begin{lstlisting}
 $ git config --global color.diff auto
 $ git config --global color.status auto
 $ git config --global color.branch auto
 \end{lstlisting}
-\paragraph{}Ces commandes vont mettre la configuration par defaut, nous allons maintenant configurer plus en detail \emph{votre} Git en ajoutant votre nom et votre mail:
+\paragraph{}Ces commandes vont mettre la configuration pour l'affichage des différentes couleurs de git sur votre terminal par défaut, nous allons maintenant configurer plus en detail \emph{votre} Git en ajoutant votre nom et votre mail:
 \begin{lstlisting}
 $ git config --global user.name "VotrePseudo"
 $ git config --global user.email moi@email.com
 \end{lstlisting}
 
-
+\newpage
 \part{Création de dépôt local}
 
-\section{Clonage}
+\section{Clonage d'un dépot distant}
 
 \paragraph{} La manière la plus fréquente de créer un dépôt
-(\emph{repository}) Git est le ``clonage''~: la copie entière d'un projet géré avec Git. Si l'on prends par exemple le projet de ce cours même qui est stocké sur \href{https://github.com}{GitHub} à l'adresse
+(\emph{repository}) Git est le "clonage", c'est-à-dire la copie entière d'un projet géré avec Git. Si l'on prend par exemple le projet de ce cours même qui est stocké sur \href{https://github.com}{GitHub} à l'adresse
 \url{https://github.com/ClubNix/git}, il suffit de taper la commande suivante pour copier le projet entier dans le dossier courant~:
 
 \begin{lstlisting}
 $ git clone https://github.com/ClubNix/git
 \end{lstlisting}
-\paragraph{}Il aussi possible de manière facultative de spécifier dans quel dépôt le clonage va se faire~:
+\paragraph{}Il aussi possible de manière facultative de spécifier dans quel dépôt le clonage va se faire:
 \begin{lstlisting}
 $ git clone https://github.com/ClubNix/git dossier
 \end{lstlisting}
 
 \section{Création d'un dépôt vide}
 
-\paragraph{} Il est bien sûr possible avec Git de créer un dépôt vide. Pour cela, il suffit de faire la commande suivante dans le dossier creer pour stocker le depot Git~:
+\paragraph{} Il est bien sûr possible avec Git de créer un dépôt vide. Pour cela, il suffit de faire la commande suivante dans le dossier créé pour stocker le dépôt Git:
 
 \begin{lstlisting}
 $ git init
 \end{lstlisting}
 
-\paragraph{} Cela va tout simplement ajouter les fichiers propres à Git dans le répertoire courant et ainsi d'initialiser la gestion de version.
+\paragraph{} Cela va tout simplement ajouter les fichiers propres à Git dans le répertoire courant ainsi qu'initialiser la gestion de version.
 
+\newpage
 \part{Exemple d'un workflow avec Git}
 \paragraph{} Avec Git, un workflow courant, est constitué de 4 étapes : la modification, la validation, le commit et l'envoi. Nous allons voir chacune des étapes dans cette partie.
 \section{Modification}
 \paragraph{}La modification est tout simplement le moment pendant lequel les fichiers (de code, etc\dots) sont modifiés. C'est la partie qui semble la plus simple dans la gestion de version. Cependant, afin d'exploiter la gestion de version à son plein potentiel, certaines règles doivent être respectées.
-\paragraph{} Premièrement, Git analyse les différents changement en faisant des ``diff'', qui consistent à regarder le différences entre un même fichier à des versions différentes. Ainsi, afin de clarifier un peu le tout, il est conseillé de préférer du texte sur plusieurs ligne que du texte sur une seule ligne.
-\paragraph{} Ensuite, afin de pouvoir mieux gérer son dépôt mais aussi de mieux gérer la stabilité et la fonctionnalité du projet, il est aussi conseillé de maximiser le nombre de version et d'en valider une aussitôt que le projet ``fonctionne''. Cela facilitera grandement la détection et la résolution d'erreurs mais aussi le travail avec les branches que l'on verra plus tard.
+\paragraph{}Premièrement, Git analyse les différents changement en faisant des "diff", qui consistent à regarder le différences entre un même fichier à des versions antérieurs. Ainsi, afin de clarifier un peu le tout, il est conseillé de préférer du texte sur plusieurs lignes que du texte sur une seule ligne.
 
+Ensuite, afin de pouvoir mieux gérer son dépôt mais aussi de mieux gérer la stabilité et la fonctionnalité du projet, il est aussi conseillé de maximiser le nombre de version et d'en valider une aussitôt que le projet ``fonctionne''. Cela facilitera grandement la détection et la résolution d'erreurs mais aussi le travail avec les branches que l'on verra plus tard.
+
+
+\newpage
+\part{Quelle procédure suivre pour enregistrer vos fichiers}
+\paragraph{}La procédure pour utiliser Git va être la suivante:
+\begin{itemize}
+\item Vous ajouter tous les fichiers qui seront à enregistrer sur le dépot distant grâce à la commande "add"
+\item Vous "committez" tous les changements de fichier sur votre dépot local, cela aura pour effet de les enregistrer dans l'attente de l'envoi sur le dépôt distant
+\item Vous "pushez" tout votre commit sur le dépôt distant afin d'enregistrer vos modifications sur celui-ci
+\end{itemize}
+
+\paragraph{}Nous verrons en détail toutes ces commandes dans la suite de ce tuto, il est à noter que certaines commandes de vérifications que nous verrons peuvent être utilisées entre chaque étape afin de vérifier les fichiers que vous envoyez ou qu'il n'y a tout simplement pas d'erreur. Voici un petit schéma résumant la procédure à suivre:
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{DeroulementProtocoleGit}
+\end{figure}
+
+\newpage
 \part{Les commandes Git de base}
-\paragraph{}Arrivé a ce stade vous savez creer un nouveau depot ou en cloner un existant afin de travailler dessus, nous allons donc maintenant voir les commandes de base pour effectuer des "sauvegardes" de votre dossier Git:
+\paragraph{}Arrivé à ce stade, vous savez créer un nouveau dépôt ou en cloner un existant afin de travailler dessus, nous allons donc maintenant voir les commandes de base pour effectuer des "sauvegardes" de votre dossier Git:
 
 \section{Modifier le code et effectuer des commits}
 \subsection{git status}
-\paragraph{}Lorsque vous modifiez les fichiers contenus dans votre depot Git vous devez les commit sur le serveur afin de les sauvegarder pour l'ensemble des utilisateur du depot, pour cela vous pouvez utiliser la commande suivante afin de voir les fichiers qui ont été modifié mais dont les modifications ne sont pas enregistrer sur le dépot:
+\paragraph{}Lorsque vous modifiez les fichiers contenus dans votre dépôt Git vous devez les commit sur le serveur afin de les sauvegarder pour l'ensemble des utilisateurs du dépôt, pour cela vous pouvez utiliser la commande suivante afin de voir les fichiers qui ont été modifiés mais dont les modifications ne sont pas enregistrer sur le dépot:
 \begin{lstlisting}
 $ git status
 \end{lstlisting}
 
-\paragraph{}Pour aller plus loin nous pouvons même voir en détail les modification non enregistrée grace a la commande suivante:
+\paragraph{}Pour aller plus loin nous pouvons même voir en détail les modifications non enregistrées grâce à la commande suivante:
 \begin{lstlisting}
 $ git diff
 \end{lstlisting}
@@ -239,35 +260,37 @@ $ git diff
 \subsection{git commit}
 \paragraph{}Maintenant que vous savez quelle modification sont a enregistrer nous pouvons passer au commit de ces changements. Pour cela plusieurs methodes sont possible:
 
-\paragraph{}La premiere va consister a ajouter les fichier qui ont modifier dans la file des fichiers a commit:
+\paragraph{}La première va consister à ajouter les fichiers qui ont modifier dans la file des fichiers à commit:
 \begin{lstlisting}
 $ git add nomfichier1 nomfichier2
 \end{lstlisting}
-\paragraph{}Puis de commit ces fichiers grace a la commande:
+\paragraph{}Puis de commit ces fichiers grâce à la commande:
 \begin{lstlisting}
 $ git commit
 \end{lstlisting}
-\paragraph{}NB: Apres un \emph{git add ...} si vous faite un \emph{git status} vous verrez les fichiers ajoutés apparaitre en vert.
+\paragraph{}Le commit aura pour effet de créer une sauvegarde du dépôt local sur votre ordinateur, sauvegarde que vous pourrez envoyer sur le dépôt distant par la suite.
 
-\paragraph{}La deuxieme methodes consiste a « commiter » tous les fichiers qui étaient listés dans \emph{git status} dans les colonnes « Changes to be committed » et « Changed but not updated » (qu’ils soient en vert ou en rouge) grace a la commande :
+NB: Après un \emph{git add ...} si vous faites un \emph{git status} vous verrez les fichiers ajoutés apparaître en vert.
+
+\paragraph{}La deuxième méthodes consiste à "commiter" tous les fichiers qui étaient listés dans \emph{git status} dans les colonnes "Changes to be committed" et "Changed but not updated" (qu’ils soient en vert ou en rouge) grâce à la commande :
 \begin{lstlisting}
 $ git commit -a
 \end{lstlisting}
 
-\paragraph{}La troisieme solution va consister a indiquer a Git quel fichiers doivent etre commit :
+\paragraph{}La troisième solution va consister à indiquer à Git quels fichiers doivent être commit :
 \begin{lstlisting}
 $ git commit nomFichier1 nomFichier2
 \end{lstlisting}
 
 \subsection{Annuler un commit}
-\paragraph{}Dans le cas ou vous auriez commiter des erreurs il est encore possible d'annuler le dernier commit effectué.
+\paragraph{}Dans le cas où vous auriez commiter des erreurs il est encore possible d'annuler le dernier commit effectué.
 \paragraph{}Pour cela nous allons commencer par vérifier les logs:
 \begin{lstlisting}
 $ git log
 \end{lstlisting}
 
 \paragraph{}Vous devriez normalement voir tous les derniers commit effectués. Chaque commit est numéroté grâce à un long numéro hexadécimal comme \textit{12328a1bcbf231da8eaf942f8d68c7dc0c7c4f38}. 
-Cela permet de les identifier.
+Cela permet de les identifiers.
 
 \paragraph{}Pour aller plus loin vous pouvez voir les lignes modifiées par le commit en utilisant la commande suivante :
 \begin{lstlisting}
@@ -278,7 +301,7 @@ $ git log -p
 $ git log --stat
 \end{lstlisting}
 
-\paragraph{}Dans le cas ou vous auriez fait une faute lors de votre dernier commit il existe une commande permettant d'ouvrir un editeur de texte pour modifié le dernier commit effectue:
+\paragraph{}Dans le cas où vous auriez fait une faute lors de votre dernier commit il existe une commande permettant d'ouvrir un éditeur de texte pour modifié le dernier commit effectué:
 \begin{lstlisting}
 $ git commit --amend
 \end{lstlisting}
@@ -296,41 +319,41 @@ $ git reset HEAD^
 -HEAD~2 : avant-avant-dernier commit (notation équivalente) ;
 -d6d98923868578a7f38dea79833b56d0326fcba1 : indique un numéro de commit précis.
 \end{lstlisting}
-\paragraph{}Seul le commit est retiré de Git ; vos fichiers, eux, restent modifiés. Vous pouvez alors à nouveau changer vos fichiers si besoin est et refaire un commit.
-\paragraph{}Vous pouvez aussi annuler un commit et \emph{toutes} les modifications qu'il implique grace a la commande:
+\paragraph{}Seul le commit est retiré de Git ; vos fichiers, eux, restent modifiés. Vous pouvez alors à nouveau changer vos fichiers si besoin et refaire un commit.
+\paragraph{}Vous pouvez aussi annuler un commit et \emph{toutes} les modifications qu'il implique grâce à la commande:
 \begin{lstlisting}
 $ git reset --hard HEAD^
 \end{lstlisting}
 
-\subsection{Restaurer un fichier a son etat anterieur avant le commit}
+\subsection{Restaurer un fichier à son état antérieur avant le commit}
 \paragraph{}Si vous avez modifié plusieurs fichiers mais que vous n’avez pas encore envoyé le commit et que vous voulez restaurer un fichier tel qu’il était au dernier commit, utilisez:
 \begin{lstlisting}
 $ git checkout nomfichier
 \end{lstlisting}
-\paragraph{}Il est possible de retirer un fichier qui avait été ajouté pour être « commité » en procédant comme suit:
+\paragraph{}Il est possible de retirer un fichier qui avait été ajouté pour être "commité" en procédant comme suit:
 \begin{lstlisting}
 $ git reset HEAD -- fichier_a_supprimer
 \end{lstlisting}
 
 \section{Partager votre travail et télécharger les nouveautés}
-\paragraph{}Sous Git vous travaillez sur un depot local, mais tous les fichiers du projet sont aussi contenus sur un depot distant dans lequel tous les contribueurs peuvent faire des modifications. Il sera donc necessaire de savoir télécharger les ouveauté apportées par d'autre mais aussi de savoir envoyer vos nouveautés sur le depot distant.
+\paragraph{}Sous Git, vous travaillez sur un dépôt local, mais tous les fichiers du projet sont aussi contenus sur un dépôt distant dans lequel tous les contribueurs peuvent faire des modifications. Il sera donc nécessaire de savoir télécharger les nouveautés apportées par d'autres mais aussi de savoir envoyer vos nouveautés sur le dépôt distant.
 \subsection{Télécharger les nouveautés}
-\paragraph{}Pour télécharger les nouveautés du depot il vous suffit d'utiliser la commande suivante:
+\paragraph{}Pour télécharger les nouveautés du dépôt il vous suffit d'utiliser la commande suivante:
 \begin{lstlisting}
 $ git pull
 \end{lstlisting}
 \paragraph{}Deux cas sont possibles :
 \begin{itemize}
-\item Soit vous n’avez effectué aucune modification depuis le dernier pull, dans ce cas la mise à jour est simple (on parle de mise à jour fast-forward) ;
+\item Soit vous n’avez effectuée aucune modification depuis le dernier pull, dans ce cas la mise à jour est simple (on parle de mise à jour fast-forward) ;
 \item Soit vous avez fait des commits en même temps que d’autres personnes. Les changements qu’ils ont effectués sont alors fusionnés aux vôtres automatiquement.
 \end{itemize}
 
-Si deux personnes modifient en même temps deux endroits distincts d’un même fichier, les changements sont intelligemment fusionnés par Git.
+\paragraph{}Si deux personnes modifient en même temps deux endroits distincts d’un même fichier, les changements sont intelligemment fusionnés par Git.
 
-Parfois, mais cela arrive normalement rarement, deux personnes modifient la même zone de code en même temps. Dans ce cas, Git dit qu’il y a un conflit car il ne peut décider quelle modification doit être conservée ; il vous indique alors le nom des fichiers en conflit. Ouvrez-les avec un éditeur et recherchez une ligne contenant « <<<<<<<<< ». Ces symboles délimitent vos changements et ceux des autres personnes. Supprimez ces symboles et gardez uniquement les changements nécessaires, puis faites un nouveau commit pour enregistrer tout cela.
+Parfois, mais cela arrive normalement rarement, deux personnes modifient la même zone de code en même temps. Dans ce cas, Git dit qu’il y a un conflit car il ne peut décider quelle modification doit être conservée ; il vous indique alors le nom des fichiers en conflit. Ouvrez-les avec un éditeur et recherchez une ligne contenant "<<<<<<<<<". Ces symboles délimitent vos changements et ceux des autres personnes. Supprimez ces symboles et gardez uniquement les changements nécessaires, puis faites un nouveau commit pour enregistrer tout cela.
 
 \subsection{Envoyer vos commit}
-\paragraph{}Avant d'envoyer quoi que ce soit nous vous conseillons fortement de vérifier ce que vous allez envoyer grace a un \emph{git log -p}, mais aussi de télécharger ce qui se trouve sur le dépot distant car le serveur ne peut régler les conflits à votre place s’il y en a. Personne ne doit avoir fait un push avant vous depuis votre dernier pull.
+\paragraph{}Avant d'envoyer quoi que ce soit nous vous conseillons fortement de vérifier ce que vous allez envoyer grâce à un \emph{git log -p}, mais aussi de télécharger ce qui se trouve sur le dépôt distant car le serveur ne peut régler les conflits à votre place s’il y en a. Personne ne doit avoir fait un push avant vous depuis votre dernier pull.
 
 Une fois cela fait vous pouvez utiliser la commande suivante pour publier vos commit:
 \begin{lstlisting}
@@ -338,15 +361,15 @@ $ git push
 \end{lstlisting}
 
 \subsection{Annuler un commit publié}
-\paragraph{}Si par megarde vous avez publié des erreurs vous pouvez toujours annuler le dernier commit publié, pour cela vous devez connaitre le numero hexadécimal de votre commit grace a \emph{git log}, ensuite vous pouvez utiliser la commande suivante pour annuler votre commit:
+\paragraph{}Si par mégarde vous avez publié des erreurs vous pouvez toujours annuler le dernier commit publié, pour cela vous devez connaitre le numéro hexadécimal de votre commit grâce à \emph{git log}, ensuite vous pouvez utiliser la commande suivante pour annuler votre commit:
 \begin{lstlisting}
 $ git revert numeroHexadecimal
 \end{lstlisting}
 
 \section{Travailler avec des branches}
-\paragraph{}Les branches font partie du cœur même de Git et constituent un de ses principaux atouts. C’est un moyen de travailler en parallèle sur d’autres fonctionnalités. C’est comme si vous aviez quelque part une « copie » du code source du site qui vous permet de tester vos idées les plus folles et de vérifier si elles fonctionnent avant de les intégrer au véritable code source de votre projet.
+\paragraph{}Les branches font parties du cœur même de Git et constituent un de ses principaux atouts. C’est un moyen de travailler en parallèle sur d’autres fonctionnalités. C’est comme si vous aviez quelque part une "copie" du code source du site qui vous permet de tester vos idées les plus folles et de vérifier si elles fonctionnent avant de les intégrer au véritable code source de votre projet.
 
-Dans Git, toutes les modifications que vous faites au fil du temps sont par défaut considérées comme appartenant à la branche principale appelée « master » :
+Dans Git, toutes les modifications que vous faites au fil du temps sont par défaut considérées comme appartenant à la branche principale appelée "master" :
 
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{Branch1}
@@ -354,15 +377,15 @@ Dans Git, toutes les modifications que vous faites au fil du temps sont par déf
 
 \paragraph{}Supposons que vous ayez une idée pour améliorer la gestion des erreurs dans votre programme mais que vous ne soyez pas sûrs qu’elle va fonctionner : vous voulez faire des tests, ça va vous prendre du temps, donc vous ne voulez pas que votre projet incorpore ces changements dans l’immédiat.
 
-Il suffit de créer une branche, que vous nommerez par exemple «idee\_gestion\_erreurs», dans laquelle vous allez pouvoir travailler en parallèle :
+Il suffit de créer une branche, que vous nommerez par exemple "idee\_gestion\_erreurs", dans laquelle vous allez pouvoir travailler en parallèle :
 
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{Branch2}
 \end{figure}
 
-\paragraph{}À un moment donné, nous avons décidé de créer une nouvelle branche. Nous avons pu y faire des commits, mais cela ne nous a pas empêché de continuer à travailler sur la branche principale et d’y faire des commits aussi.
+\paragraph{}À un moment donné, nous avons décidés de créer une nouvelle branche. Nous avons pu y faire des commits, mais cela ne nous a pas empêché de continuer à travailler sur la branche principale et d’y faire des commits aussi.
 
-Git gère tous ces problèmes pour vous. Au lieu de créer une copie des fichiers, il crée juste une branche « virtuelle » dans laquelle il retient vos changements en parallèle. Lorsque vous décidez de fusionner une branche (et donc de ramener vos changements dans « master » pour les valider), Git vérifie si vos modifications n’entrent pas en conflit avec des commits effectués en parallèle. S’il y a des conflits, il essaie de les résoudre tout seul ou vous avertit s’il a besoin de votre avis (c’est le cas si deux personnes ont modifié la même ligne d’un même fichier par exemple).
+Git gère tous ces problèmes pour vous. Au lieu de créer une copie des fichiers, il créé juste une branche "virtuelle" dans laquelle il retient vos changements en parallèle. Lorsque vous décidez de fusionner une branche (et donc de ramener vos changements dans "master" pour les valider), Git vérifie si vos modifications n’entrent pas en conflit avec des commits effectués en parallèle. S’il y a des conflits, il essaie de les résoudre tout seul ou vous avertit s’il a besoin de votre avis (c’est le cas si deux personnes ont modifiées la même ligne d’un même fichier par exemple).
 
 Ce concept de branches très légères qui ne nécessitent pas de copier les fichiers est d’une grande puissance. Cela vous encourage à créer des branches tout le temps, pour toutes les modifications qui pourraient prendre du temps avant d’être terminées.
 
@@ -370,76 +393,76 @@ Vous pouvez même créer une sous-branche à partir d’une branche !
 
 
 \subsection{Les branches locales}
-\paragraph{}Tout le monde commence avec une seule branche « master » : c’est la branche principale. Jusqu’ici, vous avez donc travaillé dans la branche « master », sur le « vrai » code source de votre projet.
+\paragraph{}Tout le monde commence avec une seule branche "master" : c’est la branche principale. Jusqu’ici, vous avez donc travaillé dans la branche "master", sur le "vrai" code source de votre projet.
 
 Pour voir toutes vos branches, tapez ceci :
 \begin{lstlisting}
 $ git branch
 \end{lstlisting}
 
-\paragraph{}La branche sur laquelle vous vous trouvez est indiquée par une etoile *.
+\paragraph{}La branche sur laquelle vous vous trouvez est indiquée par une étoile *.
 
 \subsubsection{Pourquoi créer une branche et quand la créer ?}
 \paragraph{}Lorsque vous vous apprêtez à faire des modifications sur le code source, posez-vous les questions suivantes :
 \begin{itemize}
-\item « Ma modification sera-t-elle rapide ? »
-\item « Ma modification est-elle simple ? » 
-\item « Ma modification nécessite-t-elle un seul commit ? »
-\item « Est-ce que je vois précisément comment faire ma modification d’un seul coup ? »
+\item Ma modification sera-t-elle rapide ?
+\item Ma modification est-elle simple ?
+\item Ma modification nécessite-t-elle un seul commit ?
+\item Est-ce que je vois précisément comment faire ma modification d’un seul coup ?
 \end{itemize}
 
-\paragraph{}Si la réponse à l’une de ces questions est « non », vous devriez probablement créer une branche. Créer une branche est très simple, très rapide et très efficace. Il ne faut donc pas s’en priver.
+\paragraph{}Si la réponse à l’une de ces questions est "non", vous devriez probablement créer une branche. Créer une branche est très simple, très rapide et très efficace. Il ne faut donc pas s’en priver.
 
 \subsubsection{Créer une branche et changer de branche}
-\paragraph{}Supposons que vous vouliez « améliorer la page des options membres » du code de votre site. Vous n’êtes pas sûrs du temps que cela va prendre, ce n’est pas un changement simple qui consiste à modifier deux-trois liens et vous risquez de faire plusieurs commits. Bref, il faut créer une branche pour cela.
+\paragraph{}Supposons que vous vouliez "améliorer la page des options membres" du code de votre site. Vous n’êtes pas sûrs du temps que cela va prendre, ce n’est pas un changement simple qui consiste à modifier deux-trois liens et vous risquez de faire plusieurs commits. Bref, il faut créer une branche pour cela.
 \begin{lstlisting}
 $ git branch Tuto_Git
 \end{lstlisting}
 
-\paragraph{}Cette commande va créer une branche du nom de \emph{Tuto\_Git}, il est à noter que cette branche est locale (vous seul y avait accès), il est aussi possible de la partager sur le dépot distant.
+\paragraph{}Cette commande va créer une branche du nom de \emph{Tuto\_Git}, il est à noter que cette branche est locale (vous seul y avait accès), il est aussi possible de la partager sur le dépôt distant.
 
-Vous devriez maintenant voir votre nouvelle branche en faisant un \emph{git branch}, mais vous n'etes pas encore sur votre nouvelle branche. Pour changer de branche il vous faudra taper la commande suivante:
+Vous devriez maintenant voir votre nouvelle branche en faisant un \emph{git branch}, mais vous n'êtes pas encore sur votre nouvelle branche. Pour changer de branche il vous faudra taper la commande suivante:
 \begin{lstlisting}
 $ git checkout Tuto_Git
 \end{lstlisting}
 
-\paragraph{}Qu’est-ce qui se passe lorsque l’on change de branche ? En fait, vous ne changez pas de dossier sur votre disque dur, mais Git change vos fichiers pour qu’ils reflètent l’état de la branche dans laquelle vous vous rendez. Imaginez que les branches dans Git sont comme des dossiers virtuels : vous « sautez » de l’un à l’autre avec la commande \emph{git checkout}. Vous restez dans le même dossier, mais Git modifie les fichiers qui ont changé entre la branche où vous étiez et celle où vous allez.
+\paragraph{}Qu’est-ce qui se passe lorsque l’on change de branche ? En fait, vous ne changez pas de dossier sur votre disque dur, mais Git change vos fichiers pour qu’il reflète l’état de la branche dans laquelle vous vous rendez. Imaginez que les branches dans Git sont comme des dossiers virtuels : vous "sautez" de l’un à l’autre avec la commande \emph{git checkout}. Vous restez dans le même dossier, mais Git modifie les fichiers qui ont changés entre la branche où vous étiez et celle où vous allez.
 
 \subsubsection{Fusionner les changements}
-\paragraph{}Lorsque vous avez fini de travailler sur une branche et que celle-ci est concluante, il faut « fusionner » cette branche vers « master ». Pour cela commencer par vous rendre sur votre branche "master", puis executez la commande suivante:
+\paragraph{}Lorsque vous avez fini de travailler sur une branche et que celle-ci est concluante, il faut "fusionner" cette branche vers "master". Pour cela commencer par vous rendre sur votre branche "master", puis exécutez la commande suivante:
 \begin{lstlisting}
 $ git merge Tuto_Git
 \end{lstlisting}
 
-\paragraph{}Cette commande aura pour effet de fusionner les changements effectués dans votre branche "Tuto\_Git" dans votre branche "master", mais pas de supprimer la branche "Tuto\_Git" qui ne sert plus a rien. Pour supprimer vos ancienne branches il vous suffira d'executer la commande suivante:
+\paragraph{}Cette commande aura pour effet de fusionner les changements effectués dans votre branche "Tuto\_Git" dans votre branche "master", mais pas de supprimer la branche "Tuto\_Git" qui ne sert plus a rien. Pour supprimer vos anciennes branches il vous suffira d'exécuter la commande suivante:
 \begin{lstlisting}
 $ git branch -d Tuto_Git
 \end{lstlisting}
 
-\paragraph{}Git vérifie que votre travail dans la branche « Tuto\_Git » a bien été fusionné dans « master ». Sinon, il vous en avertit et vous interdit de supprimer la branche (vous risqueriez sinon de perdre tout votre travail dans cette branche !).
+\paragraph{}Git vérifie que votre travail dans la branche "Tuto\_Git" a bien été fusionné dans "master". Sinon, il vous en avertit et vous interdit de supprimer la branche (vous risqueriez sinon de perdre tout votre travail dans cette branche !).
 
-Si vous souhaitez supprimer une branche sans en sauvegarder les changements vous pouvez utiliser cette commande a la place:
+Si vous souhaitez supprimer une branche sans en sauvegarder les changements vous pouvez utiliser cette commande à la place:
 \begin{lstlisting}
 $ git branch -D Tuto_Git
 \end{lstlisting}
 
 \subsection{Les branches partagées}
-\paragraph{}Il est possible de travailler à plusieurs sur une même branche. En fait, c’est déjà ce que vous faisiez en travaillant sur la branche « master ».
+\paragraph{}Il est possible de travailler à plusieurs sur une même branche. En fait, c’est déjà ce que vous faisiez en travaillant sur la branche "master".
 
-Pour voir toutes les branches partagées du dépot distant ils faut utiliser la commande suivante:
+Pour voir toutes les branches partagées du dépôt distant il faut utiliser la commande suivante:
 \begin{lstlisting}
 $ git branch -r
 \end{lstlisting}
 
-\paragraph{}Si le serveur possède une autre branche, par exemple « origin/Tuto\_Git », et que vous souhaitez travailler dessus, il faut créer une copie de cette branche sur votre ordinateur qui va « suivre » (on dit tracker) les changements sur le serveur. Pour cela il faut utiliser la commande suivante:
+\paragraph{}Si le serveur possède une autre branche, par exemple "origin/Tuto\_Git", et que vous souhaitez travailler dessus, il faut créer une copie de cette branche sur votre ordinateur qui va "suivre" (on dit tracker) les changements sur le serveur. Pour cela il faut utiliser la commande suivante:
 \begin{lstlisting}
 $ git branch --track branchelocale origin/brancheserveur
 \end{lstlisting}
 "branchelocale" sera une branche que vous avez créée localement afin d'acceuillir la branche partagée "brancheserveur".
 
-\paragraph{}Lorsque vous ferez un pull depuis la branche « Tuto\_Git », les changements seront fusionnés dans votre « Tuto\_Git » local. Il est donc important de savoir dans quelle branche vous vous trouvez avant de faire un pull. Un pull depuis la branche « master » met à jour votre branche « master » locale en fonction de ce qui a changé sur le serveur, et il en va de même pour n’importe quelle autre branche.
+\paragraph{}Lorsque vous ferez un pull depuis la branche "Tuto\_Git", les changements seront fusionnés dans votre "Tuto\_Git" local. Il est donc important de savoir dans quelle branche vous vous trouvez avant de faire un pull. Un pull depuis la branche "master" met à jour votre branche "master" locale en fonction de ce qui a changé sur le serveur, et il en va de même pour n’importe quelle autre branche.
 
-\paragraph{}Voyons maintenant comment créer et supprimer vos propre branches partagées.
+\paragraph{}Voyons maintenant comment créer et supprimer vos propres branches partagées.
 
 Il est possible d’ajouter des branches sur le serveur pour y travailler à plusieurs, mais il faut reconnaître que la syntaxe proposée par Git est tout sauf claire à ce niveau.
 
@@ -447,16 +470,27 @@ Voici comment on ajoute une branche sur le serveur :
 \begin{lstlisting}
 $ git push origin origin:refs/heads/nom_nouvelle_branche
 \end{lstlisting}
-Vous pouvez ensuite créer une branche locale qui « suit » la branche du serveur avec \emph{git branch --track}, comme nous l’avons vu précédemment.
+Vous pouvez ensuite créer une branche locale qui "suit" la branche du serveur avec \emph{git branch --track}, comme nous l’avons vu précédemment.
 
 \paragraph{}Enfin voyons comment supprimmer une branche partagée du serveur, pour cela il suffit d'utiliser la commande suivante:
 \begin{lstlisting}
 $ git push origin :heads/nom_branche_a_supprimer
 \end{lstlisting}
-À noter que les « remote tracking branches » (celles qui apparaissent lorsqu’on fait  \emph{git branch -r}) ne seront pas automatiquement supprimées chez les autres clients. Il faut qu’ils les suppriment manuellement à l’aide de la commande suivante :
+À noter que les "remote tracking branches" (celles qui apparaissent lorsqu’on fait  \emph{git branch -r}) ne seront pas automatiquement supprimées chez les autres clients. Il faut qu’ils les suppriment manuellement à l’aide de la commande suivante :
 \begin{lstlisting}
 $ git branch -r -d origin/nom_branche_a_supprimer
 \end{lstlisting}
+
+
+\newpage
+\part{Conclusion}
+\paragraph{}Maintenant vous devriez avoir une idée de ce qu'est Git et de comment il va pouvoir vous être utile !
+
+Vous devriez être capable de connaître les opérations basiques : créer ou cloner un dépôt, effectuer un commit ou des modifications et être capable de visualiser les modifications de chaque version dans un même projet.
+Nous avons enfin couvert la création de branches, le changement de branche et la fusion de branches locales.
+Vous devriez aussi être en mesure de partager vos branches sur un serveur et de travailler à plusieurs sur des branches partagées.
+
+Le club Nix reste à votre disposition si vous avez besoin d'aide ou désirez poser une question.
 
 
 
