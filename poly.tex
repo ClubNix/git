@@ -149,14 +149,26 @@
 
 \paragraph{}Il en existe plusieurs, les plus connus étant \emph{mercurial}, \emph{SVN} et \emph{Git}.  Nous nous intéresserons uniquement à ce dernier qui est notamment utilisé pour la réalisation de Linux.
 
-\section{Git, un gestionnaire décentralisé}
+\section{Git, GitLab, GitHub : fonctionnement et différences}
 
-\paragraph{} Git a la particularité, contrairement à d'autres gestionnaires de version d'être décentralisé, c'est à dire qu'il n'a pas besoin d'un serveur pour fonctionner.  Cependant pour des raisons de simplicité il est souvent utilisé de cette manière.
-%TODO ref plus loin
+\paragraph{}Vous qui lisez ce tutoriel, vous avez sûrement déjà entendu parler de GitHub et/ou GitLab alors que dans ce poly, nous allons uniquement vous détailler git.
 
-\paragraph{} Chaque personne possède un dépôt privé, et un dépôt public.  Le dépôt privé sert à faire du développement local, et le public sert à envoyer des versions du code source afin que d'autres personnes puissent les télécharger. En donnant à tout un groupe d'utilisateurs le même dépôt public, le système devient alors centralisé. De cette manière,tout le monde peut connaître la progression de chacun des utilisateurs dans le projet.
+Pourquoi ? Tout simplement parce-que git est en fait le coeur du fonctionnement de GitHub et GitLab \emph{(ce n'est pas rien qu'ils s'appelent tous les deux Gitquelque-chose...)}. En effet, tout le fonctionnement détaillé dans ce poly est le même pour ces trois outils, alors quelle sont les différences ?
 
-Enfin, les gestionnaires de versions apportent une sécurité supplémentaire dans le cas où le serveur qui permettait aux utilisateurs de collaborer s'arrêterait. En effet, chaque collaborateur serait alors capable de le restaurer en recopiant leur dépôt sur le serveur centralisé.
+\paragraph{}Pour faire court git a un fonctionnement qui ne nécessite aucune centralisation, ou autrement dit aucun serveur ou tout le monde rassemble son travail. Mais la plupart du temps, les équipes préférent avoir un dépot cental où l'on peut retrouver le projet avec les dernières modifications. Et c'est avec cet esprit que GitHub est né. En plus de cela, sans compte payant, les projets qui utilisent GitHub, sont entièrement accessible par tous (Open Source), par contre, pour avoir un dépot privé, il faut avoir un compte payant.
+
+Mais dans ce cas là, comment peut faire une petite équipe de développeurs ou même une très grosse entreprise qui désire utiliser Git avec un outil clés en main mais avec des dépots privés ET sans payer ? C'est là où est arrivé GitLab. Ce dernier outil propose un outil avec autant (ou presque ou plus selon les années...) que GitHub mais de façon entièrement Open Source. Ainsi, n'importe qui peut installer un serveur GitLab pour lui ou son équipe et en faire ce qu'il veut (public et/ ou privé).
+
+\paragraph{}Dernier \emph{détail}, le logiciel Git est Open Source (c'est grâce à cela que les deux autres outils peuvent se baser dessus) et n'appartient pas à une entreprise, c'est la même situation pour GitLab contrairement à GitHub qui est une entreprise qui s'est elle-même fait rachetée en 2018 par Microsoft.
+
+
+%
+% \paragraph{} Git a la particularité, contrairement à d'autres gestionnaires de version d'être décentralisé, c'est à dire qu'il n'a pas besoin d'un serveur pour fonctionner.  Cependant pour des raisons de simplicité il est souvent utilisé de cette manière.
+% %TODO ref plus loin
+%
+% \paragraph{} Chaque personne possède un dépôt privé, et un dépôt public.  Le dépôt privé sert à faire du développement local, et le public sert à envoyer des versions du code source afin que d'autres personnes puissent les télécharger. En donnant à tout un groupe d'utilisateurs le même dépôt public, le système devient alors centralisé. De cette manière,tout le monde peut connaître la progression de chacun des utilisateurs dans le projet.
+%
+% Enfin, les gestionnaires de versions apportent une sécurité supplémentaire dans le cas où le serveur qui permettait aux utilisateurs de collaborer s'arrêterait. En effet, chaque collaborateur serait alors capable de le restaurer en recopiant leur dépôt sur le serveur centralisé.
 
 \newpage
 \part{Installation}
@@ -172,19 +184,13 @@ $ sudo apt-get install git-core gitk
 \paragraph{}Pour les systèmes Windaub, il faut installer \emph{msysgit} qui installera un terminal Unix permettant d'utiliser les commandes Linux de Git (et donc de suivre la suite du tuto) ainsi que les paquets Git essentiels à son bon fonctionnement, pour installer msysgit reportez-vous au tutoriel fourni sur \url{http://msysgit.github.io}
 
 \section{MacOS}
-\paragraph{}Il y a plusieurs façons d’installer Git sous Mac OS X. Le plus simple est de se baser sur cet installeur pour Mac OS X : 
-\url{https://code.google.com/archive/p/git-osx-installer/}. 
+\paragraph{}Il y a plusieurs façons d’installer Git sous Mac OS X. Le plus simple est de se baser sur cet installeur pour Mac OS X :
+\url{https://code.google.com/archive/p/git-osx-installer/}.
 MacOS utilisant un terminal Linux nous pourrons utiliser les commandes données dans ce tuto sous MacOS.
 
 \newpage
 \part{Configuration de Git}
-\paragraph{}Avant de commencer à utiliser Git il vous faudra créer une configuration basique de Git, pour cela il vous faudra seulement exécuter quelques commandes dans un terminal Linux:
-\begin{lstlisting}
-$ git config --global color.diff auto
-$ git config --global color.status auto
-$ git config --global color.branch auto
-\end{lstlisting}
-\paragraph{}Ces commandes vont mettre la configuration pour l'affichage des différentes couleurs de git sur votre terminal par défaut, nous allons maintenant configurer plus en detail \emph{votre} Git en ajoutant votre nom et votre mail:
+\paragraph{}Avant de commencer à utiliser Git il vous faudra créer une configuration basique de Git, pour cela il vous faudra seulement exécuter quelques commandes dans un terminal Linux afin de configurer \emph{votre} Git en ajoutant votre nom et votre mail:
 \begin{lstlisting}
 $ git config --global user.name "VotrePseudo"
 $ git config --global user.email moi@email.com
@@ -197,15 +203,16 @@ $ git config --global user.email moi@email.com
 
 \paragraph{} La manière la plus fréquente de créer un dépôt
 (\emph{repository}) Git est le "clonage", c'est-à-dire la copie entière d'un projet géré avec Git. Si l'on prend par exemple le projet de ce cours même qui est stocké sur \href{https://github.com}{GitHub} à l'adresse
-\url{https://github.com/ClubNix/git}, il suffit de taper la commande suivante pour copier le projet entier dans le dossier courant~:
+\url{https://github.com/ClubNix/tuto-git}, il suffit de taper la commande suivante pour copier le projet entier dans le dossier courant~:
 
 \begin{lstlisting}
-$ git clone https://github.com/ClubNix/git
+$ git clone https://github.com/ClubNix/tuto-git.git
 \end{lstlisting}
-\paragraph{}Il aussi possible de manière facultative de spécifier dans quel dépôt le clonage va se faire:
+\paragraph{}Il est aussi possible de manière facultative de spécifier dans quel dépôt le clonage va se faire:
 \begin{lstlisting}
-$ git clone https://github.com/ClubNix/git dossier
+$ git clone https://github.com/ClubNix/tuto-git.git dossier
 \end{lstlisting}
+\paragraph{}Attention le .git en fin d'URL est important, bien que cela puisse fonctionner sans, sur GitHub, ça ne marchera pas forcément sur GitLab et Git.
 
 \section{Création d'un dépôt vide}
 
@@ -222,24 +229,21 @@ $ git init
 \paragraph{} Avec Git, un workflow courant, est constitué de 4 étapes : la modification, la validation, le commit et l'envoi. Nous allons voir chacune des étapes dans cette partie.
 \section{Modification}
 \paragraph{}La modification est tout simplement le moment pendant lequel les fichiers (de code, etc\dots) sont modifiés. C'est la partie qui semble la plus simple dans la gestion de version. Cependant, afin d'exploiter la gestion de version à son plein potentiel, certaines règles doivent être respectées.
-\paragraph{}Premièrement, Git analyse les différents changement en faisant des "diff", qui consistent à regarder le différences entre un même fichier à des versions antérieurs. Ainsi, afin de clarifier un peu le tout, il est conseillé de préférer du texte sur plusieurs lignes que du texte sur une seule ligne.
+\paragraph{}Premièrement, Git analyse les différents changement en faisant des "diff", qui consistent à regarder le différences entre un même fichier à des versions antérieures. Ainsi, afin de clarifier un peu le tout, il est conseillé de préférer du texte sur plusieurs lignes que du texte sur une seule ligne.
 
-Ensuite, afin de pouvoir mieux gérer son dépôt mais aussi de mieux gérer la stabilité et la fonctionnalité du projet, il est aussi conseillé de maximiser le nombre de version et d'en valider une aussitôt que le projet ``fonctionne''. Cela facilitera grandement la détection et la résolution d'erreurs mais aussi le travail avec les branches que l'on verra plus tard.
+Ensuite, afin de pouvoir mieux gérer son dépôt mais aussi de mieux gérer la stabilité et la fonctionnalité du projet, il est aussi conseillé de maximiser le nombre de versions et d'en valider une aussitôt que le projet ``fonctionne''. Cela facilitera grandement la détection et la résolution d'erreurs mais aussi le travail avec les branches que l'on verra plus tard.
 
 
 \newpage
 \part{Quelle procédure suivre pour enregistrer vos fichiers}
 \paragraph{}La procédure pour utiliser Git va être la suivante:
 \begin{itemize}
-\item Vous ajouter tous les fichiers qui seront à enregistrer sur le dépot distant grâce à la commande "add"
-\item Vous "committez" tous les changements de fichier sur votre dépot local, cela aura pour effet de les enregistrer dans l'attente de l'envoi sur le dépôt distant
-\item Vous "pushez" tout votre commit sur le dépôt distant afin d'enregistrer vos modifications sur celui-ci
+\item On ajoute tous les fichiers qui seront à enregistrer sur le dépot distant grâce à la commande "add"
+\item On "commit" tous les changements de fichier sur notre dépot local, cela aura pour effet de les enregistrer en créant une version locale du projet en attente de l'envoi sur le dépôt distant,
+\item On "push" tout notre commit sur le dépôt distant afin d'enregistrer nos modifications sur celui-ci, la version locale précédemment crée est envoyée et devient similaire à la version distante.
 \end{itemize}
 
-\paragraph{}Nous verrons en détail toutes ces commandes dans la suite de ce tuto, il est à noter que certaines commandes de vérifications que nous verrons peuvent être utilisées entre chaque étape afin de vérifier les fichiers que vous envoyez ou qu'il n'y a tout simplement pas d'erreur. Voici un petit schéma résumant la procédure à suivre:
-\begin{figure}[h]
-\includegraphics[width=\textwidth]{DeroulementProtocoleGit}
-\end{figure}
+\paragraph{}Nous verrons en détail toutes ces commandes dans la suite de ce tuto, il est à noter que certaines commandes de vérifications que nous verrons peuvent être utilisées entre chaque étape afin de vérifier les fichiers que vous envoyez ou qu'il n'y a tout simplement pas d'erreur.
 
 \newpage
 \part{Les commandes Git de base}
@@ -247,7 +251,7 @@ Ensuite, afin de pouvoir mieux gérer son dépôt mais aussi de mieux gérer la 
 
 \section{Modifier le code et effectuer des commits}
 \subsection{git status}
-\paragraph{}Lorsque vous modifiez les fichiers contenus dans votre dépôt Git vous devez les commit sur le serveur afin de les sauvegarder pour l'ensemble des utilisateurs du dépôt, pour cela vous pouvez utiliser la commande suivante afin de voir les fichiers qui ont été modifiés mais dont les modifications ne sont pas enregistrer sur le dépot:
+\paragraph{}Lorsque vous modifiez les fichiers contenus dans votre dépôt Git vous devez les envoyer sur le serveur afin de les sauvegarder pour l'ensemble des développeurs, pour cela vous pouvez utiliser la commande suivante afin de voir les fichiers qui ont été modifiés mais dont les modifications ne sont pas enregistrées sur le dépot:
 \begin{lstlisting}
 $ git status
 \end{lstlisting}
@@ -260,21 +264,38 @@ $ git diff
 \subsection{git commit}
 \paragraph{}Maintenant que vous savez quelle modification sont a enregistrer nous pouvons passer au commit de ces changements. Pour cela plusieurs methodes sont possible:
 
-\paragraph{}La première va consister à ajouter les fichiers qui ont modifier dans la file des fichiers à commit:
+\paragraph{}La première va consister à ajouter les fichiers qui ont été modifiés dans le tas des fichiers à commit:
 \begin{lstlisting}
 $ git add nomfichier1 nomfichier2
 \end{lstlisting}
+vous pouvez aussi ajouter tous les fichiers en même temps en utilisant :
+\begin{lstlisting}
+$ git add .
+\end{lstlisting}
+
 \paragraph{}Puis de commit ces fichiers grâce à la commande:
 \begin{lstlisting}
 $ git commit
 \end{lstlisting}
-\paragraph{}Le commit aura pour effet de créer une sauvegarde du dépôt local sur votre ordinateur, sauvegarde que vous pourrez envoyer sur le dépôt distant par la suite.
+\paragraph{}Cette commande va tout d'abord vous demander d'écrire un message pour votre commit. Nous ne nous étendrons pas dessus ici, mais, un message de commit doit être clair et concis. Quelqu'un qui n'était pas avec vous quand vous avez fait un certain commit doit pouvoir comprendre le but et l'intérêt du commit uniquement grâce à son message.
+
+Par défaut git commit ouvrira un éditeur de texte intégré au terminal pour que vous le tapiez. Pour éviter cela vous pouvez passer le message en paramètre de la commande commit ainsi :
+\begin{lstlisting}
+$ git commit -m "Votre message clair et concis."
+\end{lstlisting}
+
+Le commit aura pour effet de créer une sauvegarde/version du dépôt local sur votre ordinateur, sauvegarde que vous pourrez envoyer sur le dépôt distant par la suite.
 
 NB: Après un \emph{git add ...} si vous faites un \emph{git status} vous verrez les fichiers ajoutés apparaître en vert.
 
-\paragraph{}La deuxième méthodes consiste à "commiter" tous les fichiers qui étaient listés dans \emph{git status} dans les colonnes "Changes to be committed" et "Changed but not updated" (qu’ils soient en vert ou en rouge) grâce à la commande :
+\paragraph{}La deuxième méthode consiste à "commiter" tous les fichiers qui étaient listés dans \emph{git status} dans les colonnes "Changes to be committed" et "Changed but not updated" (qu’ils soient en vert ou en rouge) grâce à la commande :
 \begin{lstlisting}
 $ git commit -a
+\end{lstlisting}
+Cette dernière ligne est donc équivalente à la suite suivante :
+\begin{lstlisting}
+$ git add .
+$ git commit
 \end{lstlisting}
 
 \paragraph{}La troisième solution va consister à indiquer à Git quels fichiers doivent être commit :
@@ -283,13 +304,13 @@ $ git commit nomFichier1 nomFichier2
 \end{lstlisting}
 
 \subsection{Annuler un commit}
-\paragraph{}Dans le cas où vous auriez commiter des erreurs il est encore possible d'annuler le dernier commit effectué.
+\paragraph{}Dans le cas où vous auriez commité des erreurs il est encore possible d'annuler le dernier commit effectué.
 \paragraph{}Pour cela nous allons commencer par vérifier les logs:
 \begin{lstlisting}
 $ git log
 \end{lstlisting}
 
-\paragraph{}Vous devriez normalement voir tous les derniers commit effectués. Chaque commit est numéroté grâce à un long numéro hexadécimal comme \textit{12328a1bcbf231da8eaf942f8d68c7dc0c7c4f38}. 
+\paragraph{}Vous devriez normalement voir tous les derniers commit effectués. Chaque commit est numéroté grâce à un long numéro hexadécimal comme \textit{12328a1bcbf231da8eaf942f8d68c7dc0c7c4f38}.
 Cela permet de les identifiers.
 
 \paragraph{}Pour aller plus loin vous pouvez voir les lignes modifiées par le commit en utilisant la commande suivante :
@@ -301,11 +322,11 @@ $ git log -p
 $ git log --stat
 \end{lstlisting}
 
-\paragraph{}Dans le cas où vous auriez fait une faute lors de votre dernier commit il existe une commande permettant d'ouvrir un éditeur de texte pour modifié le dernier commit effectué:
+\paragraph{}Dans le cas où vous auriez fait une faute dans le message de votre dernier commit il existe une commande permettant d'ouvrir un éditeur de texte pour le modifier :
 \begin{lstlisting}
 $ git commit --amend
 \end{lstlisting}
-\paragraph{}Cette commande est généralement utilisée juste après avoir effectué un commit lorsqu’on se rend compte d’une erreur dans le message. Il est en effet impossible de modifier le message d’un commit lorsque celui-ci a été transmis à d’autres personnes.
+\paragraph{}Mais attention, il est en effet impossible de modifier le message d’un commit lorsque celui-ci a été transmis à d’autres personnes. Elle s'utilise daonc avant le push.
 \paragraph{}Pour annuler votre dernier commit vous pouvez utiliser la commande suivante:
 \begin{lstlisting}
 $ git reset HEAD^
@@ -335,6 +356,8 @@ $ git checkout nomfichier
 $ git reset HEAD -- fichier_a_supprimer
 \end{lstlisting}
 
+Ces deux dernières commandes peuvent se retrouver dans le commentaires affichés par la commande git status.
+
 \section{Partager votre travail et télécharger les nouveautés}
 \paragraph{}Sous Git, vous travaillez sur un dépôt local, mais tous les fichiers du projet sont aussi contenus sur un dépôt distant dans lequel tous les contribueurs peuvent faire des modifications. Il sera donc nécessaire de savoir télécharger les nouveautés apportées par d'autres mais aussi de savoir envoyer vos nouveautés sur le dépôt distant.
 \subsection{Télécharger les nouveautés}
@@ -350,10 +373,10 @@ $ git pull
 
 \paragraph{}Si deux personnes modifient en même temps deux endroits distincts d’un même fichier, les changements sont intelligemment fusionnés par Git.
 
-Parfois, mais cela arrive normalement rarement, deux personnes modifient la même zone de code en même temps. Dans ce cas, Git dit qu’il y a un conflit car il ne peut décider quelle modification doit être conservée ; il vous indique alors le nom des fichiers en conflit. Ouvrez-les avec un éditeur et recherchez une ligne contenant "<<<<<<<<<". Ces symboles délimitent vos changements et ceux des autres personnes. Supprimez ces symboles et gardez uniquement les changements nécessaires, puis faites un nouveau commit pour enregistrer tout cela.
+Parfois, mais cela arrive normalement rarement, deux personnes modifient la même zone de code en même temps. Dans ce cas, Git dit qu’il y a un conflit car il ne peut décider quelle modification doit être conservée ; il vous indique alors le nom des fichiers en conflit. Ouvrez-les avec un éditeur et recherchez une ligne contenant "< < < < < < <". Ces symboles délimitent vos changements et ceux des autres personnes. Supprimez ces symboles et gardez uniquement les changements nécessaires, puis faites un nouveau commit pour enregistrer tout cela.Si jamais vous oubliez quoi faire lors d'une résolution de conflit, la commande git status vous donnera des indices.
 
 \subsection{Envoyer vos commit}
-\paragraph{}Avant d'envoyer quoi que ce soit nous vous conseillons fortement de vérifier ce que vous allez envoyer grâce à un \emph{git log -p}, mais aussi de télécharger ce qui se trouve sur le dépôt distant car le serveur ne peut régler les conflits à votre place s’il y en a. Personne ne doit avoir fait un push avant vous depuis votre dernier pull.
+\paragraph{}Avant d'envoyer quoi que ce soit nous vous conseillons fortement de vérifier ce que vous allez envoyer grâce à un \emph{git log -p}, mais aussi de télécharger ce qui se trouve sur le dépôt distant car le serveur ne peut régler les conflits à votre place s’il y en a. Personne ne doit avoir fait un push avant vous depuis votre dernier pull. Au pire des cas, le push peut tout simplement refusé sans rien casser.
 
 Une fois cela fait vous pouvez utiliser la commande suivante pour publier vos commit:
 \begin{lstlisting}
@@ -365,9 +388,16 @@ $ git push
 \begin{lstlisting}
 $ git revert numeroHexadecimal
 \end{lstlisting}
+Cette commande va simplement réalisé un nouveau commit, inverse à celui que vous passez en commentaire. Exemple : le dépot est 0, premier commit : +1, revert : -1, donc dépot = 0.
+
+\newpage
+Voici un petit schéma résumant le fonctionnement des commandes vues :
+\begin{figure}[h]
+\includegraphics[width=\textwidth]{DeroulementProtocoleGit}
+\end{figure}
 
 \section{Travailler avec des branches}
-\paragraph{}Les branches font parties du cœur même de Git et constituent un de ses principaux atouts. C’est un moyen de travailler en parallèle sur d’autres fonctionnalités. C’est comme si vous aviez quelque part une "copie" du code source du site qui vous permet de tester vos idées les plus folles et de vérifier si elles fonctionnent avant de les intégrer au véritable code source de votre projet.
+\paragraph{}Les branches font parties du cœur même de Git et constituent un de ses principaux atouts. C’est un moyen de travailler en parallèle sur d’autres fonctionnalités. C’est comme si vous aviez quelque part une "copie" du code source du projet qui vous permettrait de tester vos idées les plus folles et de vérifier si elles fonctionnent avant de les intégrer au véritable code source de votre projet.
 
 Dans Git, toutes les modifications que vous faites au fil du temps sont par défaut considérées comme appartenant à la branche principale appelée "master" :
 
@@ -414,12 +444,12 @@ $ git branch
 \paragraph{}Si la réponse à l’une de ces questions est "non", vous devriez probablement créer une branche. Créer une branche est très simple, très rapide et très efficace. Il ne faut donc pas s’en priver.
 
 \subsubsection{Créer une branche et changer de branche}
-\paragraph{}Supposons que vous vouliez "améliorer la page des options membres" du code de votre site. Vous n’êtes pas sûrs du temps que cela va prendre, ce n’est pas un changement simple qui consiste à modifier deux-trois liens et vous risquez de faire plusieurs commits. Bref, il faut créer une branche pour cela.
+\paragraph{}Imaginons que vous vouliez créer un tutoriel Web sur Git et l'insérer sur votre site internet. Vous n’êtes pas sûrs du temps que cela va prendre, ce n’est pas un changement simple qui consiste à modifier deux-trois liens et vous risquez de faire plusieurs commits. Bref, il faut créer une branche pour cela.
 \begin{lstlisting}
 $ git branch Tuto_Git
 \end{lstlisting}
 
-\paragraph{}Cette commande va créer une branche du nom de \emph{Tuto\_Git}, il est à noter que cette branche est locale (vous seul y avait accès), il est aussi possible de la partager sur le dépôt distant.
+\paragraph{}Cette commande va créer une branche du nom de \emph{Tuto\_Git}, il est à noter que cette branche est locale (vous seul y avez accès), il est aussi possible de la partager sur le dépôt distant.
 
 Vous devriez maintenant voir votre nouvelle branche en faisant un \emph{git branch}, mais vous n'êtes pas encore sur votre nouvelle branche. Pour changer de branche il vous faudra taper la commande suivante:
 \begin{lstlisting}
@@ -427,6 +457,8 @@ $ git checkout Tuto_Git
 \end{lstlisting}
 
 \paragraph{}Qu’est-ce qui se passe lorsque l’on change de branche ? En fait, vous ne changez pas de dossier sur votre disque dur, mais Git change vos fichiers pour qu’il reflète l’état de la branche dans laquelle vous vous rendez. Imaginez que les branches dans Git sont comme des dossiers virtuels : vous "sautez" de l’un à l’autre avec la commande \emph{git checkout}. Vous restez dans le même dossier, mais Git modifie les fichiers qui ont changés entre la branche où vous étiez et celle où vous allez.
+
+Sachant que si vous avez fait des modifications non-enregistrées, Git va être gentil et ne va pas écrire par dessus lors d'un checkout.
 
 \subsubsection{Fusionner les changements}
 \paragraph{}Lorsque vous avez fini de travailler sur une branche et que celle-ci est concluante, il faut "fusionner" cette branche vers "master". Pour cela commencer par vous rendre sur votre branche "master", puis exécutez la commande suivante:
@@ -492,15 +524,30 @@ Vous devriez aussi être en mesure de partager vos branches sur un serveur et de
 
 Le club Nix reste à votre disposition si vous avez besoin d'aide ou désirez poser une question.
 
+\section*{Bibliographie}
+
+\begin{itemize}
+	\item LE site de l'origine avec les documentations originelles: \url{http://git-scm.com}
+\end{itemize}
+
+\paragraph{}Et de la lecture en anglais
+\paragraph{}
+Si nous n'avons pas été clair, deux résumés :
+\begin{itemize}
+	\item \url{http://rogerdudler.github.io/git-guide/}
+	\item \url{https://www.atlassian.com/git/}
+\end{itemize}
 
 
-%TODO biblio
-%
-% http://git-scm.com <- référence
-% http://rogerdudler.github.io/git-guide/
-% http://stackoverflow.com/questions/315911/git-for-beginners-the-definitive-practical-guide#320140
-% https://www.atlassian.com/git/
-%
+\paragraph{}
+Un guide pour écrire de bons messages de commit :
+
+\url{https://juffalow.com/other/write-good-git-commit-message}
+
+
+
+\paragraph{}Sachant que vous pouvez TOUT trouver sur Git, du bon comme du mauvais, amusez vous bien \textbackslash o/
+
 %TODO
 % Explain why `git init --bare' if on own server
 \end{document}
