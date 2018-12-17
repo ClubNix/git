@@ -5,6 +5,7 @@
 %\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 \raggedbottom%  Prevents vertical white space on pages that cannot be filled properly
 
+\usepackage{microtype}
 \usepackage{hyperref}
 \hypersetup{%
 	colorlinks=true,       	% false: boxed links; true: colored links
@@ -149,18 +150,27 @@
 
 \paragraph{}Il en existe plusieurs, les plus connus étant \emph{mercurial}, \emph{SVN} et \emph{Git}.  Nous nous intéresserons uniquement à ce dernier qui est notamment utilisé pour la réalisation de Linux.
 
-\section{Git, GitLab, GitHub : fonctionnement et différences}
+\section{Git, GitLab, GitHub: fonctionnement et différences}
 
 \paragraph{}Vous qui lisez ce tutoriel, vous avez sûrement déjà entendu parler de GitHub et/ou GitLab alors que dans ce poly, nous allons uniquement vous détailler git.
 
 Pourquoi ? Tout simplement parce-que git est en fait le coeur du fonctionnement de GitHub et GitLab \emph{(ce n'est pas rien qu'ils s'appelent tous les deux Gitquelque-chose...)}. En effet, tout le fonctionnement détaillé dans ce poly est le même pour ces trois outils, alors quelle sont les différences ?
 
-\paragraph{}Pour faire court git a un fonctionnement qui ne nécessite aucune centralisation, ou autrement dit aucun serveur ou tout le monde rassemble son travail. Mais la plupart du temps, les équipes préférent avoir un dépot cental où l'on peut retrouver le projet avec les dernières modifications. Et c'est avec cet esprit que GitHub est né. En plus de cela, sans compte payant, les projets qui utilisent GitHub, sont entièrement accessible par tous (Open Source), par contre, pour avoir un dépot privé, il faut avoir un compte payant.
+\paragraph{}Pour faire court git a un fonctionnement qui ne nécessite aucune centralisation, ou autrement dit aucun serveur ou tout le monde rassemble son travail. Mais la plupart du temps, les équipes préférent avoir un dépôt cental où l'on peut retrouver le projet avec les dernières modifications. Et c'est avec cet esprit que GitHub est né. En plus de cela, sans compte payant, les projets qui utilisent GitHub, sont entièrement accessible par tous (Open Source), par contre, pour avoir un dépôt privé, il faut avoir un compte payant.
 
-Mais dans ce cas là, comment peut faire une petite équipe de développeurs ou même une très grosse entreprise qui désire utiliser Git avec un outil clés en main mais avec des dépots privés ET sans payer ? C'est là où est arrivé GitLab. Ce dernier outil propose un outil avec autant (ou presque ou plus selon les années...) que GitHub mais de façon entièrement Open Source. Ainsi, n'importe qui peut installer un serveur GitLab pour lui ou son équipe et en faire ce qu'il veut (public et/ ou privé).
+Mais dans ce cas là, comment peut faire une petite équipe de développeurs ou
+même une très grosse entreprise qui désire utiliser Git avec un outil clés en
+main mais avec des dépôts privés ET sans payer ? C'est là où est arrivé GitLab.
+Ce dernier outil propose un outil avec autant (ou presque ou plus selon les
+années...) que GitHub mais de façon entièrement Open Source. Ainsi, n'importe
+qui peut installer un serveur GitLab pour lui ou son équipe et en faire ce
+qu'il veut (public et/ ou privé). GitLab possède aussi des fonctionnalités
+payantes non Open-Source.
 
-\paragraph{}Dernier \emph{détail}, le logiciel Git est Open Source (c'est grâce à cela que les deux autres outils peuvent se baser dessus) et n'appartient pas à une entreprise, c'est la même situation pour GitLab contrairement à GitHub qui est une entreprise qui s'est elle-même fait rachetée en 2018 par Microsoft.
-
+\paragraph{}Dernier \emph{détail}, le logiciel Git est Open Source (c'est grâce
+à cela que les deux autres outils peuvent se baser dessus) et n'appartient pas
+à une entreprise, contrairement à GitLab, et GitHub qui appartient à Microsoft
+depuis 2018.
 
 %
 % \paragraph{} Git a la particularité, contrairement à d'autres gestionnaires de version d'être décentralisé, c'est à dire qu'il n'a pas besoin d'un serveur pour fonctionner.  Cependant pour des raisons de simplicité il est souvent utilisé de cette manière.
@@ -175,18 +185,30 @@ Mais dans ce cas là, comment peut faire une petite équipe de développeurs ou 
 \paragraph{}L'installation de Git diffère en fonction de votre système d'exploitation:
 \section{Linux}
 \paragraph{} Pour installer Git sur un système Linux il suffit d'exécuter la commande suivante:
+
 \begin{lstlisting}
-$ sudo apt-get install git-core gitk
+$ sudo apt-get install git
 \end{lstlisting}
-\paragraph{}A savoir que Git est installé par défaut sur certains systèmes Linux.
+
+\paragraph{} A savoir que Git est installé par défaut sur certains systèmes
+Linux. Si vous voulez aussi une interface graphique, plutôt que d'utiliser git
+exclusivement en ligne de commande vous pouvez aussi installer "gitk" en
+exécutant:
+
+\begin{lstlisting}
+$ sudo apt-get install gitk
+\end{lstlisting}
 
 \section{Windows}
 \paragraph{}Pour les systèmes Windaub, il faut installer \emph{msysgit} qui installera un terminal Unix permettant d'utiliser les commandes Linux de Git (et donc de suivre la suite du tuto) ainsi que les paquets Git essentiels à son bon fonctionnement, pour installer msysgit reportez-vous au tutoriel fourni sur \url{http://msysgit.github.io}
 
 \section{MacOS}
-\paragraph{}Il y a plusieurs façons d’installer Git sous Mac OS X. Le plus simple est de se baser sur cet installeur pour Mac OS X :
+\paragraph{}Il y a plusieurs façons d’installer Git sous Mac OS X. Le plus simple est de se baser sur cet installeur pour Mac OS X:
+
 \url{https://code.google.com/archive/p/git-osx-installer/}.
-MacOS utilisant un terminal Linux nous pourrons utiliser les commandes données dans ce tuto sous MacOS.
+
+\paragraph{} MacOS utilisant un terminal Linux nous pourrons utiliser les
+commandes données dans ce tuto sous MacOS.
 
 \newpage
 \part{Configuration de Git}
@@ -199,7 +221,7 @@ $ git config --global user.email moi@email.com
 \newpage
 \part{Création de dépôt local}
 
-\section{Clonage d'un dépot distant}
+\section{Clonage d'un dépôt distant}
 
 \paragraph{} La manière la plus fréquente de créer un dépôt
 (\emph{repository}) Git est le "clonage", c'est-à-dire la copie entière d'un projet géré avec Git. Si l'on prend par exemple le projet de ce cours même qui est stocké sur \href{https://github.com}{GitHub} à l'adresse
@@ -212,7 +234,11 @@ $ git clone https://github.com/ClubNix/tuto-git.git
 \begin{lstlisting}
 $ git clone https://github.com/ClubNix/tuto-git.git dossier
 \end{lstlisting}
-\paragraph{}Attention le .git en fin d'URL est important, bien que cela puisse fonctionner sans, sur GitHub, ça ne marchera pas forcément sur GitLab et Git.
+
+\paragraph{} L'URL de clonage vous est normalement fournie par le service que
+vous utilisez pour héberger votre code (GitHub, GitLab ou autre). Attention: il
+est possible que l'URL de clonage ne soit pas la même que l'URL utilisée pour
+voire votre projet sur votre navigateur internet.
 
 \section{Création d'un dépôt vide}
 
@@ -223,6 +249,10 @@ $ git init
 \end{lstlisting}
 
 \paragraph{} Cela va tout simplement ajouter les fichiers propres à Git dans le répertoire courant ainsi qu'initialiser la gestion de version.
+
+\paragraph{} Notez qu'il est souvent plus simple de créer un dépôt vide
+directement sur GitHub ou GitLab, puis de le cloner, car Git sera à ce moment
+là assez malin pour "lier" votre dépôt local à celui distant.
 
 \newpage
 \part{Exemple d'un workflow avec Git}
@@ -238,8 +268,8 @@ Ensuite, afin de pouvoir mieux gérer son dépôt mais aussi de mieux gérer la 
 \part{Quelle procédure suivre pour enregistrer vos fichiers}
 \paragraph{}La procédure pour utiliser Git va être la suivante:
 \begin{itemize}
-\item On ajoute tous les fichiers qui seront à enregistrer sur le dépot distant grâce à la commande "add"
-\item On "commit" tous les changements de fichier sur notre dépot local, cela aura pour effet de les enregistrer en créant une version locale du projet en attente de l'envoi sur le dépôt distant,
+\item On ajoute tous les fichiers qui seront à enregistrer sur le dépôt distant grâce à la commande "add"
+\item On "commit" tous les changements de fichier sur notre dépôt local, cela aura pour effet de les enregistrer en créant une version locale du projet en attente de l'envoi sur le dépôt distant,
 \item On "push" tout notre commit sur le dépôt distant afin d'enregistrer nos modifications sur celui-ci, la version locale précédemment crée est envoyée et devient similaire à la version distante.
 \end{itemize}
 
@@ -249,9 +279,22 @@ Ensuite, afin de pouvoir mieux gérer son dépôt mais aussi de mieux gérer la 
 \part{Les commandes Git de base}
 \paragraph{}Arrivé à ce stade, vous savez créer un nouveau dépôt ou en cloner un existant afin de travailler dessus, nous allons donc maintenant voir les commandes de base pour effectuer des "sauvegardes" de votre dossier Git:
 
+\section{Obtenir de l'aide}
+
+\paragraph{} Si vous voulez des informations sur une commande particulière,
+vous pouvez utiliser la commande "git help". Par exemple, si vous voulez de
+l'aide sur la commande "git status" (que nous allons voir juste après), vous
+pouvez exécuter dans un terminal:
+
+\begin{lstlisting}
+$ git help status
+\end{lstlisting}
+
+\paragraph{} Git est très bien documenté, alors n'hésitez pas.
+
 \section{Modifier le code et effectuer des commits}
 \subsection{git status}
-\paragraph{}Lorsque vous modifiez les fichiers contenus dans votre dépôt Git vous devez les envoyer sur le serveur afin de les sauvegarder pour l'ensemble des développeurs, pour cela vous pouvez utiliser la commande suivante afin de voir les fichiers qui ont été modifiés mais dont les modifications ne sont pas enregistrées sur le dépot:
+\paragraph{}Lorsque vous modifiez les fichiers contenus dans votre dépôt Git vous devez les envoyer sur le serveur afin de les sauvegarder pour l'ensemble des développeurs, pour cela vous pouvez utiliser la commande suivante afin de voir les fichiers qui ont été modifiés mais dont les modifications ne sont pas enregistrées sur le dépôt:
 \begin{lstlisting}
 $ git status
 \end{lstlisting}
@@ -310,8 +353,9 @@ $ git commit nomFichier1 nomFichier2
 $ git log
 \end{lstlisting}
 
-\paragraph{}Vous devriez normalement voir tous les derniers commit effectués. Chaque commit est numéroté grâce à un long numéro hexadécimal comme \textit{12328a1bcbf231da8eaf942f8d68c7dc0c7c4f38}.
-Cela permet de les identifiers.
+\paragraph{}Vous devriez normalement voir tous les derniers commit effectués.
+Chaque commit est numéroté grâce à un long numéro hexadécimal comme
+\textit{12328a1bc\ldots} Cela permet de les identifiers.
 
 \paragraph{}Pour aller plus loin vous pouvez voir les lignes modifiées par le commit en utilisant la commande suivante :
 \begin{lstlisting}
@@ -373,7 +417,16 @@ $ git pull
 
 \paragraph{}Si deux personnes modifient en même temps deux endroits distincts d’un même fichier, les changements sont intelligemment fusionnés par Git.
 
-Parfois, mais cela arrive normalement rarement, deux personnes modifient la même zone de code en même temps. Dans ce cas, Git dit qu’il y a un conflit car il ne peut décider quelle modification doit être conservée ; il vous indique alors le nom des fichiers en conflit. Ouvrez-les avec un éditeur et recherchez une ligne contenant "< < < < < < <". Ces symboles délimitent vos changements et ceux des autres personnes. Supprimez ces symboles et gardez uniquement les changements nécessaires, puis faites un nouveau commit pour enregistrer tout cela.Si jamais vous oubliez quoi faire lors d'une résolution de conflit, la commande git status vous donnera des indices.
+Parfois, mais cela arrive normalement rarement, deux personnes modifient la
+même zone de code en même temps. Dans ce cas, Git dit qu’il y a un conflit car
+il ne peut décider quelle modification doit être conservée ; il vous indique
+alors le nom des fichiers en conflit. Ouvrez-les avec un éditeur et recherchez
+une ligne contenant "\verb+<<<<<<<+", "\verb+=======+" ou "\verb+>>>>>>>+". Ces
+symboles délimitent vos changements et ceux des autres personnes. Supprimez ces
+symboles et gardez uniquement les changements nécessaires, puis faites un
+nouveau commit pour enregistrer tout cela.Si jamais vous oubliez quoi faire
+lors d'une résolution de conflit, la commande git status vous donnera des
+indices.
 
 \subsection{Envoyer vos commit}
 \paragraph{}Avant d'envoyer quoi que ce soit nous vous conseillons fortement de vérifier ce que vous allez envoyer grâce à un \emph{git log -p}, mais aussi de télécharger ce qui se trouve sur le dépôt distant car le serveur ne peut régler les conflits à votre place s’il y en a. Personne ne doit avoir fait un push avant vous depuis votre dernier pull. Au pire des cas, le push peut tout simplement refusé sans rien casser.
@@ -388,10 +441,13 @@ $ git push
 \begin{lstlisting}
 $ git revert numeroHexadecimal
 \end{lstlisting}
-Cette commande va simplement réalisé un nouveau commit, inverse à celui que vous passez en commentaire. Exemple : le dépot est 0, premier commit : +1, revert : -1, donc dépot = 0.
+Cette commande va simplement réaliser un nouveau commit, inverse à celui que
+vous passez en commentaire. Exemple : si le premier commit ajoute une ligne
+contenant "bonjour", le "revert" sera un commit supprimant cette ligne, et le
+résultat sera comme si rien ne c'était passé.
 
 \newpage
-Voici un petit schéma résumant le fonctionnement des commandes vues :
+Voici un petit schéma résumant le fonctionnement des commandes vues:
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{DeroulementProtocoleGit}
 \end{figure}
@@ -466,7 +522,10 @@ Sachant que si vous avez fait des modifications non-enregistrées, Git va être 
 $ git merge Tuto_Git
 \end{lstlisting}
 
-\paragraph{}Cette commande aura pour effet de fusionner les changements effectués dans votre branche "Tuto\_Git" dans votre branche "master", mais pas de supprimer la branche "Tuto\_Git" qui ne sert plus a rien. Pour supprimer vos anciennes branches il vous suffira d'exécuter la commande suivante:
+\paragraph{}Cette commande aura pour effet de fusionner les changements
+effectués dans votre branche "Tuto\_Git" dans votre branche "master", mais pas
+de supprimer cette branche qui ne sert plus a rien. Pour supprimer vos
+anciennes branches il vous suffira d'exécuter la commande suivante:
 \begin{lstlisting}
 $ git branch -d Tuto_Git
 \end{lstlisting}
@@ -486,33 +545,39 @@ Pour voir toutes les branches partagées du dépôt distant il faut utiliser la 
 $ git branch -r
 \end{lstlisting}
 
-\paragraph{}Si le serveur possède une autre branche, par exemple "origin/Tuto\_Git", et que vous souhaitez travailler dessus, il faut créer une copie de cette branche sur votre ordinateur qui va "suivre" (on dit tracker) les changements sur le serveur. Pour cela il faut utiliser la commande suivante:
+\paragraph{} Si le serveur possède une autre branche, par exemple
+"origin/brancheserveur", et que vous souhaitez travailler dessus, il suffit
+d'utiliser la commande suivante:
+
 \begin{lstlisting}
-$ git branch --track branchelocale origin/brancheserveur
-\end{lstlisting}
-"branchelocale" sera une branche que vous avez créée localement afin d'acceuillir la branche partagée "brancheserveur".
-
-\paragraph{}Lorsque vous ferez un pull depuis la branche "Tuto\_Git", les changements seront fusionnés dans votre "Tuto\_Git" local. Il est donc important de savoir dans quelle branche vous vous trouvez avant de faire un pull. Un pull depuis la branche "master" met à jour votre branche "master" locale en fonction de ce qui a changé sur le serveur, et il en va de même pour n’importe quelle autre branche.
-
-\paragraph{}Voyons maintenant comment créer et supprimer vos propres branches partagées.
-
-Il est possible d’ajouter des branches sur le serveur pour y travailler à plusieurs, mais il faut reconnaître que la syntaxe proposée par Git est tout sauf claire à ce niveau.
-
-Voici comment on ajoute une branche sur le serveur :
-\begin{lstlisting}
-$ git push origin origin:refs/heads/nom_nouvelle_branche
-\end{lstlisting}
-Vous pouvez ensuite créer une branche locale qui "suit" la branche du serveur avec \emph{git branch --track}, comme nous l’avons vu précédemment.
-
-\paragraph{}Enfin voyons comment supprimmer une branche partagée du serveur, pour cela il suffit d'utiliser la commande suivante:
-\begin{lstlisting}
-$ git push origin :heads/nom_branche_a_supprimer
-\end{lstlisting}
-À noter que les "remote tracking branches" (celles qui apparaissent lorsqu’on fait  \emph{git branch -r}) ne seront pas automatiquement supprimées chez les autres clients. Il faut qu’ils les suppriment manuellement à l’aide de la commande suivante :
-\begin{lstlisting}
-$ git branch -r -d origin/nom_branche_a_supprimer
+$ git checkout brancheserveur
 \end{lstlisting}
 
+\paragraph{}Lorsque vous ferez un pull depuis la branche "brancheserveur", les changements seront fusionnés dans votre "brancheserveur" local. Il est donc important de savoir dans quelle branche vous vous trouvez avant de faire un pull. Un pull depuis la branche "master" met à jour votre branche "master" locale en fonction de ce qui a changé sur le serveur, et il en va de même pour n’importe quelle autre branche.
+
+\paragraph{} Voyons maintenant comment créer et supprimer vos propres branches
+partagées. Si vous avez créé une branche localement, et que vous voulez "push"
+les modifications sur le serveur il vous suffit de faire:
+
+\begin{lstlisting}
+$ git push --set-upstream origin ma_nouvelle_branche
+\end{lstlisting}
+
+\paragraph{} Les options de "git push" signifient que votre nouvelle branche
+sera liée à votre dépôt distant, représenté par le mot "origin". Une fois cette
+liaison faite, les commandes "git push" et "git pull" fonctionneront
+automatiquement sans options, pourvu que vous soyez sur la bonne branche.
+
+\paragraph{} Enfin voyons comment supprimer une branche partagée du serveur,
+pour cela il suffit d'utiliser la commande suivante:
+
+\begin{lstlisting}
+$ git push --delete origin nom_branche_a_supprimer
+\end{lstlisting}
+
+\paragraph{} À noter que cette commande supprime uniquement la branche sur le
+serveur. Il vous faudra tout de même supprimer votre branche locale comme vu à
+la section précédente.
 
 \newpage
 \part{Conclusion}
